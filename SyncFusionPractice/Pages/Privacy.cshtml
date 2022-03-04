@@ -1,0 +1,107 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+@using Syncfusion.EJ2.PivotView
+
+@section ControlsSection{
+    <div class="control-section" style="overflow:auto">
+        <div id="dropdown-control" style="margin-bottom:5px;">
+            <table style="width: 350px;">
+                <tbody>
+                    <tr style="height: 50px">
+                        <td>
+                            <div><b>Content Type:</b>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <select id="contenttype" name="ddl-view-mode">
+                                    <option value='JSON' selected>JSON</option>
+                                    <option value='CSV'>CSV</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="content-wrapper">
+            <div id="PivotView1" style="height:100%;">
+            </div>
+        </div>
+    </div>
+<script>
+    var remoteData = new ej.data.DataManager({
+        url: 'https://bi.syncfusion.com/northwindservice/api/orders',
+        adaptor: new ej.data.WebApiAdaptor,
+        crossDomain: true
+    });
+
+    var csvReport = {
+        url: 'https://bi.syncfusion.com/productservice/api/sales',
+        dataSource: undefined,
+        type: 'CSV',
+        enableSorting: true,
+        expandAll: false,
+        rows: [
+            { name: 'Region' },
+            { name: 'Country' }
+        ],
+        values: [
+            { name: 'Total Cost' },
+            { name: 'Total Revenue' },
+            { name: 'Total Profit' }
+        ],
+        columns: [
+            { name: 'Item Type' },
+            { name: 'Sales Channel' }
+        ],
+        formatSettings: [{ name: 'Total Cost', format: 'C0' }, { name: 'Total Revenue', format: 'C0' }, { name: 'Total Profit', format: 'C0' }],
+        drilledMembers: [{ name: 'Item Type', items: ['Baby Food'] }],
+        filters: []
+    };
+
+    var jsonReport = {
+		dataSource: remoteData,
+		type: 'JSON',
+		expandAll: true,
+		formatSettings: [{ name: 'UnitPrice', format: 'C0' }],
+		columns: [{ name: 'ProductName', caption: 'Product Name' }],
+		filters: [],
+		rows: [{ name: 'ShipCountry', caption: 'Ship Country' }, { name: 'ShipCity', caption: 'Ship City' }],
+		values: [{ name: 'Quantity' }, { name: 'UnitPrice', caption: 'Unit Price' }]
+	};
+    var pivotObj = new ej.pivotview.PivotView({
+        dataSourceSettings: jsonReport,
+        height: 400,
+        width: '100%',
+        gridSettings: { columnWidth: 120 }
+    });
+    pivotObj.appendTo('#PivotView1');
+
+	var contentDropDown = new ej.dropdowns.DropDownList({
+        placeholder: 'Content Type',
+        change: function (args) {
+            if (args.value === 'JSON') {
+                pivotObj.dataSourceSettings = jsonReport;
+            } else if (args.value === 'CSV') {
+				pivotObj.dataSourceSettings = csvReport;
+            }
+        }
+    });
+    contentDropDown.appendTo('#contenttype');
+</script>
+<style>
+    .control-section {
+        padding-top: 5px;
+    }
+</style>
+}
+
+@section Scripts {
+    <script>
+        ej.base.enableRipple(false);
+    </script>
+}

@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "unpkg",
+      "library": "syncfusion-javascript@19.4.48",
+      "destination": "wwwroot/lib/syncfusion-javascript/"
+    },
+    {
+      "library": "jsrender@1.0.11",
+      "destination": "wwwroot/lib/jsrender/"
+    }
+  ]
+}

@@ -11,6 +11,7 @@
      <!-- Syncfusion Essential JS 2 Scripts -->
      <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
     <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Styles",false);
 </head>
 <body>
     <header>
@@ -34,6 +35,15 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/DropDownTree">DropDownTree</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/WordDoc">Word</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/DatePicker">DatePicker</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Calendar">Calendar</a>
                         </li>
                     </ul>
                 </div>

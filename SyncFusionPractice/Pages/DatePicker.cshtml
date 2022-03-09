@@ -1,0 +1,36 @@
+﻿@page
+@model SyncFusionPractice.Pages.DatePickerModel
+@{
+    ViewData["Title"] = "DatePicker";
+}
+@*<div class="control-section">
+        <div id="wrapper" class="datepicker-section">
+            <div id="datepicker-control">
+                <ejs-datepicker id="datepicker" placeholder="Choose a Date"></ejs-datepicker>
+            </div>
+        </div>
+    </div>*@
+    
+    <h1>Disabled Dates</h1>
+     <div class=" control-section">
+        <div id="wrapper" class="calender-section">
+            <div id="calender-control">
+                <ejs-datepicker id="datepicker" value="@(DateTime.Now);" 
+                min="@DateTime.Now" max=@DateTime.Now.AddDays(5) renderDayCell="disableDate" placeholder="Choose a Date"></ejs-datepicker>
+            </div>
+        </div>
+    </div>
+    
+    @section Scripts{
+        <script>
+    //disable the date
+    function disableDate(args) {
+        if (args.date.getDay() == 0 || args.date.getDay() == 6) {
+            args.isDisabled = true;
+        }
+         if (args.date.getDate() === 10) {
+            args.isDisabled = true;
+        }
+    }
+</script>
+    }
